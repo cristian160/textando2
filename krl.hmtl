@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cantada Interativa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100 vh;
+            background: linear-gradient (-45 deg, #ff7eb3, #ff758c, #ff5e62, #ff3d4d);
+            background-size: 300% 300%;
+            margin: 0;
+            overflow: hidden;
+            transition: background 3s ease-in-out;
+        }
+        
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20 px;
+            border-radius: 10 px;
+            box-shadow: 0 4 px 10 px rgba (0, 0, 0, 0.2);
+            transition: transform 0.5 s;
+            width: 300 px;
+        }
+        
+        .container:hover {
+            transform: rotate (5 deg) scale (1.1);
+        }
+        
+        button {
+            background-color: #ff4b5c;
+            color: white;
+            border: none;
+            padding: 10 px 20 px;
+            font-size: 16 px;
+            cursor: pointer;
+            border-radius: 5 px;
+            transition: background 0.3 s;
+        }
+        
+        button:hover {
+            background-color: #ff1c3b;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        img {
+            width: 100 px;
+            height: 100 px;
+            margin-top: 10 px;
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale (0.8);
+            transition: opacity 0.5 s ease-in-out, transform 0.5s ease-in-out;
+        }
+        
+        img.mostrar {
+            opacity: 1;
+            transform: scale (1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Escolha seu estilo de cantada:</h2>
+        <select id="categoria">
+            <option value="romantica">Romântica</option>
+            <option value="nerd">Nerd</option>
+            <option value="engracada">Engraçada</option>
+        </select>
+        <button onclick="mostrarCantada()">Clique aqui ❤️</button>
+        <p id="cantada" class="hidden"></p>
+        <img id="imagem" class="hidden" src="" alt="Imagem representativa">
+    </div>
+
+    <script>
+        function mudarFundo() {
+            const cores = ["#ff7eb3", "#ff758c", "#ff5e62", "#ff3d4d", "#ffadad"];
+            document.body.style.background = `linear-gradient(-45deg, ${cores[Math.floor(Math.random() * cores.length)]}, ${cores[Math.floor(Math.random() * cores.length)]})`;
+        }
+
+        function mostrarCantada() {
+            const cantadas = {
+                "romantica": [
+                    { text: "Se beleza fosse tempo, você seria a eternidade!", img: "images/romantica.jpg" }
+                ],
+                "nerd": [
+                    { text: "Você é o bug que eu nunca quero corrigir ❤️", img: "images/nerd.jpg" }
+                ],
+                "engracada": [
+                    { text: "Se você fosse um sonho, nunca mais queria acordar!", img: "images/engracada.jpg" }
+                ]
+            };
+
+            const categoria = document.getElementById("categoria").value;
+            const index = Math.floor(Math.random() * cantadas[categoria].length);
+            const cantadaElemento = document.getElementById('cantada');
+            const imagemElemento = document.getElementById('imagem');
+            
+            cantadaElemento.innerText = cantadas[categoria][index].text;
+            cantadaElemento.classList.remove('hidden');
+            
+            imagemElemento.src = cantadas[categoria][index].img;
+            imagemElemento.classList.remove('hidden');
+            imagemElemento.classList.add('mostrar');
+            
+            mudarFundo();
+        }
+    </script>
+</body>
+</html>
